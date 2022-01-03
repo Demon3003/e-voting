@@ -4,27 +4,33 @@
     <h3>{{'LOGIN.WELCOME' | translate}}</h3>
     <div class="row text-white">
       <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
-        <img  src="https://img.icons8.com/plasticine/100/000000/user-male-circle.png"/>
+        <div class="row mb-3 align-items-center justify-content-center">
+          <div class="col-6  text-center">
+            <img class="w-50 h-50" src="../../assets/user.png" />
+          </div>
+        </div>
         <div class="alert alert-danger" [hidden]="!error">
-            {{error}}
+          {{error}}
         </div>
         <form [formGroup]="userForm" (ngSubmit)="login()">
           <div class="form-group ">
-            <input type="text" formControlName="username"  class="form-control text-center"  placeholder="{{'LOGIN.FORM.USERNAME' | translate}}" required maxlength="20">
+            <input type="text" formControlName="username" class="form-control text-center"
+              placeholder="{{'LOGIN.FORM.USERNAME' | translate}}" required maxlength="20">
           </div>
           <div class="form-group">
-            <input type="password" formControlName="password" class="form-control text-center" id="exampleInputPassword1" placeholder="{{'LOGIN.FORM.PASSWORD' | translate}}" required maxlength="20">
+            <input type="password" formControlName="password" class="form-control text-center"
+              id="exampleInputPassword1" placeholder="{{'LOGIN.FORM.PASSWORD' | translate}}" required maxlength="20">
           </div>
-          <button  class="btn btn-secondary btn-lg btn-block" type="submit" [disabled]="!userForm.valid">{{'LOGIN.FORM.BUTTON.LOGIN' | translate}}</button>
+          <button class="btn btn-secondary btn-lg btn-block" type="submit"
+            [disabled]="!userForm.valid">{{'LOGIN.FORM.BUTTON.LOGIN' | translate}}</button>
         </form>
-        <div class="text-center">
-          <a  routerLinkActive="active" routerLink="/pass-reset"><label style="color: white;" class="btn">{{'LOGIN.FORM.FORGOT_PASSWORD' | translate}}</label></a>
-          <a routerLinkActive="active" routerLink="/signup"><label style="color: white;" class="btn" >{{'LOGIN.FORM.SIGN_UP' | translate}}</label></a>
+        <div class="mt-4 text-center">
+          <a routerLinkActive="active" routerLink="/pass-reset"><label style="color: white; font-size: large;"
+              class="btn">{{'LOGIN.FORM.FORGOT_PASSWORD' | translate}}</label></a>
+          <a routerLinkActive="active" routerLink="/signup"><label style="color: white; font-size: large;"
+              class="btn">{{'LOGIN.FORM.SIGN_UP' | translate}}</label></a>
         </div>
       </div>
     </div>
   </div>
 </section>
-
-
-

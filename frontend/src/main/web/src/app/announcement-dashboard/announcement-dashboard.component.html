@@ -4,15 +4,15 @@
       <ul class="nav nav-tabs">
         <li class="nav-item" >
           <a  data-target="#announcement" (click)="editOnly = false" data-toggle="tab" class="nav-link active show text-white" role="button" aria-expanded="false">
-            <strong>{{'DASHBOARD.SIDEBAR.TABS.ANNOUNCEMENTS.TABS.ANNOUNCEMENTS.TITLE' | translate}}</strong></a>
+            <strong>{{'DASHBOARD.SIDEBAR.TABS.FORMS.TABS.FORMS.TITLE' | translate}}</strong></a>
         </li>
-        <li *ngIf="getRole() !=='user' " class="nav-item">
+        <li *ngIf="getRole() !=='user'" class="nav-item">
           <a  data-target="#approve" (click)="editOnly = false"  data-toggle="tab" role="button" aria-expanded="false" class="nav-link text-white">
-            <strong>{{'DASHBOARD.SIDEBAR.TABS.ANNOUNCEMENTS.TABS.ANNOUNCEMENT_APPROVE.TITLE' | translate}}</strong></a>
+            <strong>{{'DASHBOARD.SIDEBAR.TABS.FORMS.TABS.CREATE_CANDIDATE_PROFILE' | translate}}</strong></a>
         </li>
-        <li class="nav-item" >
+        <li *ngIf="getRole() !=='user'" class="nav-item" >
           <a  data-target="#create" data-toggle="tab" role="button" aria-expanded="false" class="nav-link text-white">
-            <strong>{{'DASHBOARD.SIDEBAR.TABS.ANNOUNCEMENTS.TABS.CREATE_ANNOUNCEMENT.TITLE' | translate}}</strong></a>
+            <strong>{{'DASHBOARD.SIDEBAR.TABS.FORMS.TABS.CREATE_FORM.TITLE' | translate}}</strong></a>
         </li>
       </ul>
     </div>
@@ -24,11 +24,12 @@
           <app-announcement-edit *ngIf="editOnly" [announcement]="announcement"  [editOnly]="editOnly"></app-announcement-edit>
         </div>
       <div  class="tab-pane" id="approve">
-        <div *ngIf="!editOnly" class="raw">
+        <app-user-profile [editOnly] = "true" [user] = "user"></app-user-profile>
+        <!-- <div *ngIf="!editOnly" class="raw">
           <h2 *ngIf="newAnnouncements.length == 0 ">{{'DASHBOARD.SIDEBAR.TABS.ANNOUNCEMENTS.TABS.ANNOUNCEMENT_APPROVE.NO_SHOW' | translate}}</h2>
           <app-announcement  (onChanged)="editAnn($event)" *ngFor="let announcement of getNewAnnouncements()" [announcement] = "announcement"> </app-announcement>
         </div>
-        <app-announcement-edit *ngIf="editOnly" [announcement]="announcement"  [editOnly]="editOnly"></app-announcement-edit>
+        <app-announcement-edit *ngIf="editOnly" [announcement]="announcement"  [editOnly]="editOnly"></app-announcement-edit> -->
       </div>
       <div  class="tab-pane" id="create">
         <div class="raw">

@@ -7,6 +7,7 @@ import {Setting} from '../entities/setting';
 
 import {tap} from "rxjs/operators";
 import {User} from "../entities/user";
+import { APP_URL } from '../parameters';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,9 +17,9 @@ export class SettingsService {
   activitySettings:Setting[];
 
 
-  // private apiURL = 'http://localhost:8080/api';
+  private apiURL = `${APP_URL}/api`;
 
-  private apiURL = '/api';
+  // private apiURL = '/api';
 
 
   constructor(private http: HttpClient, private userService: UserService) { }

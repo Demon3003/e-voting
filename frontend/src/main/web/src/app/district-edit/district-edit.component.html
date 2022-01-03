@@ -1,0 +1,76 @@
+<div class="container">
+    <div class="row p-2 ">
+        <div class="col" id="bod">
+            <form [formGroup]="districtForm" role="form" (ngSubmit)="submit()">
+                <div class="form-group row justify-content-center">
+                    <div class="col-lg-11 ml-lg-3 mt-5 alert alert-danger" [hidden]="!error">
+                        {{error}}
+                    </div>
+                    <div class="col-lg-11 ml-lg-3 mt-3 alert alert-success" [hidden]="!message">
+                        {{message}}
+                    </div>
+                </div>
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-4 col-sm-4 col-md-4">
+                        <div class="form-group align-items-center">
+                            <div class="text-center">
+                                <img [src]="imageUrl" style="max-width: 250px; max-height: 250px" class="mx-auto d-flex"
+                                    alt="img">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-10 col-sm-10 col-md-8 align-self-center">
+                        <div class="form-group">
+                            <h3><label
+                                    class=" form-control-label">{{'DASHBOARD.SIDEBAR.TABS.FORMS.TABS.CREATE_FORM.FORM.DISTRICT_TITLE'
+                                    |
+                                    translate}}</label></h3>
+                            <input class="form-control" formControlName="number" type="text" required>
+                        </div>
+                        <div class="form-group">
+                            <h3><label
+                                    class=" form-control-label">{{'DASHBOARD.SIDEBAR.TABS.FORMS.TABS.CREATE_FORM.FORM.DISTRICT_CITY'
+                                    |
+                                    translate}}</label></h3>
+                            <input class="form-control" formControlName="city" type="text" required>
+                        </div>
+                        <div class="form-group">
+                            <h3><label
+                                    class=" form-control-label">{{'DASHBOARD.SIDEBAR.TABS.FORMS.TABS.CREATE_FORM.FORM.DISTRICT_ADDRESS'
+                                    |
+                                    translate}}</label></h3>
+                            <input class="form-control" formControlName="address" type="text" required>
+                        </div>
+                        <div class="form-group mt-5 text-left">
+                            <mat-form-field class="bg-primary" style="border-radius: 10px;"  appearance="fill">
+                                <mat-label >{{'DASHBOARD.SIDEBAR.TABS.FORMS.TABS.CREATE_FORM.FORM.DISTRICT_ELECTIONS'
+                                    |
+                                    translate}}</mat-label>
+                                <mat-select  formControlName="elections" multiple>
+                                    <mat-option *ngFor="let election of allElections" [value]="election.id">
+                                        {{election.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="text-center">
+                                <div *ngIf="editOnly && getUserRole() !== 'user'">
+                                    <input type="submit" class="btn btn-primary" (click)="save()"
+                                        value="{{'DASHBOARD.SIDEBAR.TABS.FORMS.TABS.CREATE_FORM.FORM.BUTTON.SAVE_CHANGES' | translate}}"
+                                        [disabled]="!districtForm.valid">
+                                </div>
+                                <div *ngIf="!editOnly">
+                                    <input type="submit" class="btn btn-success" (click)="add()"
+                                        value="{{'DASHBOARD.SIDEBAR.TABS.FORMS.TABS.CREATE_FORM.FORM.BUTTON.ADD' | translate}}"
+                                        [disabled]="!districtForm.valid">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

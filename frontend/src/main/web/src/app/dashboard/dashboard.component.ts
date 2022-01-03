@@ -26,6 +26,7 @@ export class DashboardComponent implements OnInit {
   imageUrl: string = USER_DEFAULT_IMAGE;
   users$: Observable<User[]>;
   quizes$: Observable<Quiz[]>;
+  voters$: Observable<User[]>;
   categoriesList: Category[] = [];
   isVisible = true;
   term: string = "";
@@ -40,6 +41,7 @@ export class DashboardComponent implements OnInit {
 
   private searchQuizTerms = new Subject<any>();
   private searchUserTerms = new Subject<string>();
+  private searchVotersTerms = new Subject<string>();
 
   constructor(private userService: UserService, private quizService: QuizService, private achievementService: AchievementService,
               private categoryService: CategoryService,
@@ -51,19 +53,21 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.getCategories();
     this.tab = this.route.snapshot.paramMap.get('tab');
-    this.user = this.tab === 'Profile' ? this.userService.user : {role: {}} as User;
+    this.user = this.tab === 'Profile' ? this.userService.user : {role: {}, status: {id:2}} as User;
     this.user.image = this.getUserImage();
     this.checkImage();
-    this.quizes$ = this.searchQuizTerms.pipe(
-      debounceTime(DEBOUNCE_TIME),
-      distinctUntilChanged(),
-      switchMap((obj: any) => this.quizService.searchQuizzes(obj.title, obj.categories, obj.dateFrom, obj.dateTo, obj.user)),
-    );
+  
     this.users$ = this.searchUserTerms.pipe(
       debounceTime(DEBOUNCE_TIME),
       distinctUntilChanged(),
       switchMap((term: string) => this.userService.searchUsers(term)),
     );
+    this.voters$ = this.searchVotersTerms.pipe(
+      debounceTime(DEBOUNCE_TIME),
+      distinctUntilChanged(),
+      switchMap((term: string) => this.userService.searchVoters(term)),
+    )
+    
     this.setJoinForm();
 
   }
@@ -85,12 +89,15 @@ export class DashboardComponent implements OnInit {
     this.isVisible = false;
     if (this.tab === 'Quizzes') {
       this.searchQuizTerms.next({ title: this.term, categories: this.selectedCategories, dateFrom: date_from, dateTo: date_to, user: this.quizUser });
+    } else if (this.tab === 'Voters') {
+      this.searchVotersTerms.next(this.term);
     } else {
       this.searchUserTerms.next(this.term);
     }
   }
+
   profileSet( editOnly?: boolean, user?: User) {
-    this.user = (user ? user : {role: {}} as User);
+    this.user = (user ? user : {role: {}, status: {id: 2}} as User);
     this.changeTab(editOnly ? 'AddProfile' : 'Profile');
   }
 
@@ -118,6 +125,9 @@ export class DashboardComponent implements OnInit {
   }
   getUserImage() {
     return this.userService.user.image;
+  }
+  getUserStatus() {
+    return this.userService.user.status.id;
   }
 
   getCategories() {

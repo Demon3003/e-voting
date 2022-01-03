@@ -24,6 +24,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("api/quiz/")
+@CrossOrigin(origins = "*")
 public class PlayQuizController {
 
     @Autowired
@@ -99,9 +100,9 @@ public class PlayQuizController {
             @RequestParam("access_code") String accessCode
     ) {
         Session session = sessionService.getSessionByAccessCode(accessCode);
-        System.out.println(session);
+
         if(session != null){
-            System.out.println("not null ses");
+
             User user = userService.getUserById(user_id);
             userToSessionService.createNewUserToSession(user, session);
             return ResponseEntity.ok(session);
@@ -136,7 +137,7 @@ public class PlayQuizController {
 
     @PostMapping("finish")
     public ResponseEntity finishQuiz(@RequestBody FinishedQuizDto finishedQuizDto) {
-        System.out.println(finishedQuizDto.getUser_id()+" "+finishedQuizDto.getSes_id()+" "+finishedQuizDto.getTime()+" "+finishedQuizDto.getScore());
+
         sessionService.setSesionStatus(finishedQuizDto.getSes_id(),new SessionStatus(2L,"ended"));
         userToSessionService.insertScore(finishedQuizDto);
         return ResponseEntity.ok(messageSource.getMessage("result.ok", null, LocaleContextHolder.getLocale()));

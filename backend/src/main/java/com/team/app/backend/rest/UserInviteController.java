@@ -1,12 +1,11 @@
 package com.team.app.backend.rest;
 
-import com.team.app.backend.persistance.model.Announcement;
+import com.team.app.backend.persistance.model.User;
 import com.team.app.backend.persistance.model.UserInvite;
 import com.team.app.backend.service.UserInviteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.dao.DataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,6 +37,11 @@ public class UserInviteController {
         return ResponseEntity.ok().body(userInviteService.getUserInvite(id));
     }
 
+    @GetMapping("/pending")
+    public ResponseEntity<List<User>> getPendingUsers() {
+        return ResponseEntity.ok().body(userInviteService.getAllPendingUsers());
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity acceptUserInvite(@PathVariable("id") long id) {
         Map<String, String> model = new HashMap<>();
@@ -64,7 +68,7 @@ public class UserInviteController {
                                              @PathVariable("delete_id") long deleteId) {
         Map<String, String> model = new HashMap<>();
         userInviteService.deleteUserFromList(id, deleteId);
-        model.put("message", messageSource.getMessage("announcement.deleted", null, LocaleContextHolder.getLocale()));
+        model.put("message", messageSource.getMessage("form.deleted", null, LocaleContextHolder.getLocale()));
         return ResponseEntity.ok(model);
     }
 }

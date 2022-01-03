@@ -65,8 +65,6 @@ export class QuizComponent implements OnInit, OnDestroy {
       this.initializeWebSocketConnection();
     });
     this.getQuestions();
-    console.log("join"+this.getUserJoin());
-
   }
 
   nextQuestion(): void {

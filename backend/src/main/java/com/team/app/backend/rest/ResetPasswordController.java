@@ -6,13 +6,13 @@ import com.team.app.backend.exception.NotMatchingPasswordsException;
 import com.team.app.backend.exception.UserNotFoundException;
 import com.team.app.backend.persistance.model.User;
 import com.team.app.backend.service.UserService;
-//import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "*")
 public class ResetPasswordController {
 
     @Autowired

@@ -1,18 +1,19 @@
 {
   "HOME": {
+    "VOTE": "Дякуємо за ваш голос!",
     "TITLE": "Ласкаво просимо",
-    "LOGIN_TEXT": "Увійдіть, щоб побачити своє привітання",
+    "LOGIN_TEXT": "Ви зайшли до електроної системи голосування - E-Vote.",
     "WELCOME": "Ми раді бачити вас"
   },
 
   "HEADER": {
-    "BRAND": "BrainDuel",
+    "BRAND": "E-Vote",
     "HOME": "Головна",
     "LOGIN": "Вхід",
     "LOGOUT": "Вихід",
     "DASHBOARD": "Головна",
     "BUTTON": {
-      "CREATE QUIZ": "СТВОРИТИ КВІЗ",
+      "CREATE_CANDIDATE_FORM": "CТВОРИТИ АНКЕТУ КАНДИДАТА",
       "JOIN GAME":"ПРИЄДНАТИСЯ ДО ГРИ"
 
     }
@@ -20,10 +21,10 @@
 
   "LOGIN": {
     "TITLE": "ВХІД КОРИСТУВАЧА",
-    "WELCOME": "Ласкаво просимо у BrainDuel!",
+    "WELCOME": "Ласкаво просимо у E-Vote!",
     "FORM": {
-      "USERNAME": "ІМ'Я КОРИСТУВАЧА",
-      "PASSWORD": "Пароль",
+      "USERNAME": "ЛОГІН КОРИСТУВАЧА",
+      "PASSWORD": "ПАРОЛЬ",
       "REMEMBER_ME": "Запам'ятати мене",
       "BUTTON": {
         "LOGIN": "Вхід"
@@ -46,7 +47,7 @@
 
   "SIGN_UP": {
     "TITLE": "РЕЄСТРАЦІЯ КОРИСТУВАЧА",
-    "TEXT": "до BrainDuel",
+    "TEXT": "до E-Vote",
     "FORM": {
       "USER_NAME": {
         "LABEL": "ІМ'Я КОРИСТУВАЧА",
@@ -56,6 +57,7 @@
         "LABEL": "ІМ'Я",
         "VALIDATION_EMPTY": "Ім'я не може бути порожнім"
       },
+      "PASSPORT_EMPTY": "Номер паспорту не може бути порожнім",
       "LAST_NAME": {
         "LABEL": "ПРІЗВИЩЕ",
         "VALIDATION_EMPTY": "Прізвище не може бути порожнім"
@@ -99,61 +101,96 @@
         "FIRST_NAME": "Ім'я: ",
         "LAST_NAME": "Прізвище: ",
         "EMAIL": "Email: ",
+        "PASSPORT": "Номер паспорта: ",
         "ADMIN_BUTTON": {
-          "EDIT": "Редагувати профіль"
+          "EDIT": "Редагувати профіль",
+          "APPROVE": "Підтвердити профіль",
+          "DISAPPROVE": "Відхилити профіль",
+          "ASSIGN": "Затвердити"
+          
         }
       },
       "CATEGORIES": "Категорії"
     },
 
     "SIDEBAR": {
+      "ELECTIONS":"Вибори",
+      "DISTRICTS":"Виборчі дильниці",
       "QUIZZES": "Квізи",
       "PROFILE": " Профіль",
-      "FRIENDS": " Друзі",
-      "ADMINS_MODERATORS": " Адміністратори / модератори",
-      "MODERATORS": " Модератори",
+      "VOTERS": "Профілі виборців",
+      "ADMINS_SPECIALISTS": " Адміністратори / Спеціалісти",
+      "SPECIALISTS": " Спеціалісти",
       "ACTIVITIES":" Активності друзів",
-      "ANNOUNCEMENT": " Оголошення",
+      "FORM": " Анкети кандидатів",
       "ACHIEVEMENTS": " Досягнення",
       "SETTINGS": " Налаштування",
+      "STATUS": {
+        "ACTIVE" : "Ваш профіль підтверджено",
+        "INACTIVE" : "Будь ласка, заповніть усю інформацію у профілі",
+        "PENDING" : "Ваш профіль перевіряється",
+        "REJECTED" : "Ваш профіль не пройшов перевірку. Будь ласка, перевірте вашу пошту для детальної інформації"
+      },  
       "TABS": {
-        "FRIENDS": {
-          "LABEL": "Друзі",
+        "VOTERS": {
+          "LABEL": "Профілі виборців для перевірки",
           "INVITES": "Запрошення",
-          "NO_TO_SHOW": "Немає друзів для показу"
+          "NO_TO_SHOW": "Немає профілів для перевірки",
+          "DISTRICTS_FOR_YOU": "ВАША ВИБОРЧА ДІЛЬНИЦЯ",
+          "ELECTIONS_FOR_YOU": "ВИБОРИ НА ЯКІ ВАС ЗАПРОШЕНО"
         },
 
-        "ANNOUNCEMENTS": {
+        "FORMS": {
           "TABS": {
-            "ANNOUNCEMENTS": {
-              "TITLE": "Оголошення"
+            "FORMS": {
+              "TITLE": "Анкети кандидатів",
+              "ELECTION_TITLE": "Форми виборів",
+              "DISTRICT_TITLE": "Дільниці"
+
             },
 
-            "ANNOUNCEMENT_APPROVE": {
+            "FORMS_APPROVE": {
+              "SURE": "Ви впевнені?",
               "TITLE": "Оголошення для затвердження",
               "NO_SHOW": "Немає оголошень для затвердження",
               "CREATED": "Створено",
+              "ELECTION_START_DATE": "Дата початку виборів",
+              "ELECTION_END_DATE": "Дата закінчення виборів",
               "BUTTON": {
                 "EDIT": "Редагувати",
                 "DELETE": "Видалити",
                 "APPROVE": "Затвердити",
-                "DISAPPROVE": "Відхилити"
+                "DISAPPROVE": "Відхилити",
+                "VOTE": "Проголосувати",
+                "YES": "ТАК",
+                "NO": "НІ"
               }
             },
-            "CREATE_ANNOUNCEMENT": {
-              "TITLE": "Створити оголошення",
+            "CREATE_CANDIDATE_PROFILE": "Створити профіль кандидата",
+            "CREATE_FORM": {
+              "TITLE": "Створити інформаційну форму кандидата",
+              "ELECTION_TITLE": "Створити форму виборів",
+              "DISTRICT_TITLE": "Додати нову дільницю",
               "FORM": {
-                "TITLE": "Назва",
-                "TEXT": "Текст",
+                "TITLE": "ФІО кандидата",
+                "DISTRICT_TITLE": "Номер дільниці",
+                "DISTRICT_CITY": "Населений пункт",
+                "DISTRICT_ADDRESS": "Повна адреса",
+                "DISTRICT_ELECTIONS": "Додати вибори",
+                "ASSIGN_ELECTIONS":"Призначити вибори",
+                "ASSIGN_DISTRICT":"Призначити дільницю",
+                "TEXT": "Опис кандидата",
+                "START_DATE": "Дата початку виборів",
+                "END_DATE": "Дата завершення виборів",
                 "BUTTON": {
                   "SAVE_CHANGES": "ЗБЕРЕГТИ ЗМІНИ",
                   "ADD": "ДОДАТИ"
                 },
-                "SELECT_IMAGE": "Виберіть зображення оголошення",
+                "SELECT_IMAGE": "Виберіть зображення анкети",
                 "CHOOSE_FILE": "ВИБЕРІТЬ ФАЙЛ",
                 "IMPORTANT": "Позначте як важливе"
               },
-              "ALERT": "Виникає проблема."
+              "ALERT": "Виникла проблема."
             }
           }
         },
@@ -205,7 +242,7 @@
           }
         },
 
-        "ADMINS_MODERATORS": {
+        "ADMINS_SPECIALISTS": {
           "EDIT": {
             "FORM": {
               "FIRST_NAME": "Ім'я",
@@ -216,10 +253,10 @@
               "CONFIRM_PASSWORD": "Підтвердьте пароль",
               "RADIO_BUTTON": {
                 "ADMIN": "Адміністратор",
-                "MODERATOR": "Модератор"
+                "SPECIALIST": "Спеціаліст"
               }
             },
-            "UPLOAD": "Завантажте іншу фотографію",
+            "UPLOAD": "Завантажте фотографію",
             "CHOOSE_FILE": "Виберіть файл"
           }
         }
@@ -239,8 +276,8 @@
       "PROFILE": {
         "LABEL": "Профіль",
         "USER_PROFILE": "ПРОФІЛЬ КОРИСТУВАЧА",
-        "SUPER_ADMIN_PROFILE": "ПРОФІЛЬ СУПЕР АДМІН",
-        "UPLOAD": "Завантажте іншу фотографію",
+        "SUPER_ADMIN_PROFILE": "ПРОФІЛЬ ГОЛОВНОГО АДМІНІСТРАТОРА",
+        "UPLOAD": "Завантажте фотографію",
         "CHOOSE_FILE": "Виберіть файл"
       },
       "EDIT": {
@@ -249,6 +286,7 @@
         "LAST_NAME": "Прізвище",
         "EMAIL": "Email",
         "USERNAME": "Ім'я користувача",
+        "PASSPORT": "Номер паспорта",
         "BUTTON": {
           "SET_NEW_PASSWORD": "Встановити новий пароль",
           "SAVE_CHANGES": "Зберегти зміни",

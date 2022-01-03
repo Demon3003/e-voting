@@ -16,7 +16,9 @@ import java.util.List;
 
 @Repository
 public class UserInviteDaoImpl implements UserInviteDao {
+
     private final JdbcTemplate jdbcTemplate;
+    
     @Autowired
     private Environment env;
 

@@ -1,11 +1,23 @@
-<section   class="min-vh-100" id="cover">
-  <div class="col text-center text-white">
-    <h1>{{'HOME.TITLE' | translate}}</h1>
-    <div class="container" [hidden]="!authenticated()">
-      <p>{{'HOME.WELCOME' | translate}}</p>
-    </div>
-    <div [hidden]="authenticated()">
-      <p>{{'HOME.LOGIN_TEXT' | translate}}</p>
+<section class="min-vh-100" id="cover">
+  <div class="container">
+    <div class="raw mt-3">
+      <div class="col text-center text-white">
+        <div class="raw">
+          <h1>{{'HOME.TITLE' | translate}}</h1>
+          <h1 style="background-color:royalblue; border-radius: 10px;" *ngIf="election.name != null">на {{election.name}}</h1>
+          <div *ngIf="election.name == null" class="container" [hidden]="!authenticated()">
+            <h2><p>{{'HOME.WELCOME' | translate}}</p></h2>
+          </div>
+          <div [hidden]="authenticated()">
+            <p>{{'HOME.LOGIN_TEXT' | translate}}</p>
+          </div>
+        </div>
+        <div class="raw list mt-4" style="overflow-y: auto;">
+          <app-announcement (onChanged)="sendVoice($event)" *ngFor="let announcement of announcements" [announcement]="announcement">
+          </app-announcement>
+        </div>
+      </div>
     </div>
   </div>
+
 </section>

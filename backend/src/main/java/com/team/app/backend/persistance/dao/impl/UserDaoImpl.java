@@ -3,17 +3,22 @@ package com.team.app.backend.persistance.dao.impl;
 import com.team.app.backend.persistance.dao.UserDao;
 import com.team.app.backend.persistance.dao.mappers.UserRowMapper;
 import com.team.app.backend.persistance.model.User;
+
+import org.apache.tomcat.util.json.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import lombok.extern.slf4j.Slf4j;
 
 import javax.sql.DataSource;
-import java.sql.PreparedStatement;
 import java.util.List;
 
+@Repository
+@Slf4j
 public class UserDaoImpl implements UserDao {
 
-    @Autowired
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -25,9 +30,6 @@ public class UserDaoImpl implements UserDao {
     public UserDaoImpl(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
-
-
-
 
     @Override
     public void save(User user) {
@@ -116,16 +118,18 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void activateByToken(String token) {
         jdbcTemplate.update(
-                "UPDATE users set status_id = 2 WHERE activate_link = ?",
+                "UPDATE users set status_id = 4 WHERE activate_link = ?",
                 token
         );
     }
 
     @Override
     public boolean checkTokenAvailability(String token) {
+        log.info("Token: {}", token);
+        log.info("JDBC: {}", jdbcTemplate);
         return jdbcTemplate.queryForObject(
-                "SELECT ? IN (SELECT activate_link FROM users)",
-                new Object[]{token},Boolean.class
+                "SELECT ? IN (SELECT activate_link FROM users WHERE activate_link IS NOT null)",
+                new Object[]{token}, Boolean.class
         );
     }
 

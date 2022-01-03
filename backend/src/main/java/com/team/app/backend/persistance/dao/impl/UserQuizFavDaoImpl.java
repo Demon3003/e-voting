@@ -33,7 +33,6 @@ public class UserQuizFavDaoImpl implements UserQuizFavDao {
 
     @Override
     public void deleteFavorite(Long user_id, Long quiz_id) {
-        System.out.println(user_id+" "+quiz_id);
         jdbcTemplate.update(
                 env.getProperty("delete.favourite"),
                 user_id,quiz_id

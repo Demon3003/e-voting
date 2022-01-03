@@ -31,6 +31,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private static final String SOCKET_ENDPOINT = "/ws";
     private static final String ACTIVATE_ENDPOINT = "/api/user/activate*";
     private static final String RECOVERY_ENDPOINT = "/api/recovery";
+    private static final String PHOTO_ENDPOINT = "/api/user/image/*";
+    private static final String VOTING_ENDPOINT = "/api/election/*";
+    private static final String CANDIDATES_ALL_ENDPOINT = "/api/user/allForElections/*";
 
 
     @Autowired
@@ -60,8 +63,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(ROOT_ENDPOINT).permitAll()
                 .antMatchers(RECOVERY_ENDPOINT).permitAll()
                 .antMatchers(SOCKET_ENDPOINT).permitAll()
-                .antMatchers(HttpMethod.GET,ACTIVATE_ENDPOINT + "*")
-                .permitAll()
+                .antMatchers(HttpMethod.GET,ACTIVATE_ENDPOINT + "*").permitAll()
+                .antMatchers(PHOTO_ENDPOINT).permitAll()
+                .antMatchers(VOTING_ENDPOINT).permitAll()
+                .antMatchers(CANDIDATES_ALL_ENDPOINT).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .apply(new JwtConfigurer(jwtTokenProvider)).and().cors();
@@ -71,7 +76,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
         configuration.setAllowedMethods(Arrays.asList("*"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
@@ -87,17 +92,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 "/runtime*.js",
                 "/styles*.js",
                 "/scripts.js",
-                "https://brain-duel.herokuapp.com*",
                 "/main*.js",
                 "/ua.svg",
                 "/gb.svg",
-                "/assets/i18n/en.json",
-                "/assets/i18n/ua.json",
-                "/assets/loader_brainduel.svg",
-                "/assets/logo_brainduel.png",
+                "/assets/**",
+                "/**",
                 "/vendor*.js",
-                "/assets/stomp.min.js",
-                "/assets/sockjs.min.js",
+                // "/assets/stomp.min.js",
+                // "/assets/sockjs.min.js",
                 "/ws/**"
         );
     }

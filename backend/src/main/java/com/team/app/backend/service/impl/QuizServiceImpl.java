@@ -83,7 +83,7 @@ public class QuizServiceImpl implements QuizService {
     public Long addOptQuestion(QuestionOptAddDto questionOptAddDto) {
 
         Long id = addQuestion(questionOptAddDto);
-        System.out.println(id);
+
         for (OptionDto optionDto: questionOptAddDto.getOptions()) {
             Option option=new Option();
             option.setIs_correct(optionDto.getIs_correct());
@@ -98,7 +98,7 @@ public class QuizServiceImpl implements QuizService {
     @Override
     public Long addSeqOptQuestion(QuestionSeqAddDto questionSeqAddDto) {
         Long id = addQuestion(questionSeqAddDto);
-        System.out.println(id);
+
         for (SeqOptionDto seqOptionDto: questionSeqAddDto.getOptions()) {
             SeqOption seqOption=new SeqOption();
             seqOption.setImage(seqOptionDto.getImage());
@@ -211,7 +211,7 @@ public class QuizServiceImpl implements QuizService {
     @Override
     public List<Quiz> getAllQuizes() {
         List<Quiz> list =  quizDao.getAll();
-        System.out.println(list.size());
+
         return list;
     }
 

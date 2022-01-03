@@ -4,7 +4,7 @@
       <form [formGroup]="announcementForm" role="form" (ngSubmit)="submit()">
         <div class="form-group row justify-content-center">
           <div class="col-lg-11 ml-lg-3 mt-5 alert alert-danger" [hidden]="!error">
-            {{'DASHBOARD.SIDEBAR.TABS.ANNOUNCEMENTS.TABS.CREATE_ANNOUNCEMENT.ALERT' | translate}} {{error}}.
+            {{error}}
           </div>
           <div class="col-lg-11 ml-lg-3 alert alert-success" [hidden]="!message">
             {{message}}
@@ -14,37 +14,38 @@
           <div class="col-4 col-sm-4 col-md-4">
             <div class="form-group align-items-center">
               <div class="text-center">
-                <img [src]="announcement.image || imageUrl" style="max-width: 250px; max-height: 250px"  class="mx-auto d-flex" alt="img">
-                <h5 class="mt-2">{{'DASHBOARD.SIDEBAR.TABS.ANNOUNCEMENTS.TABS.CREATE_ANNOUNCEMENT.FORM.SELECT_IMAGE' | translate}}</h5>
-                <label class="custom-file">
+                <img [src]="announcement.image || imageUrl" style="max-width: 250px; max-height: 250px"
+                  class="mx-auto d-flex" >
+                <h5 class="mt-2">{{'DASHBOARD.SIDEBAR.TABS.FORMS.TABS.CREATE_FORM.FORM.SELECT_IMAGE' | translate}}</h5>
+               
                   <app-upload-file (onChanged)="onChanged($event)"></app-upload-file>
-                </label>
+               
               </div>
             </div>
           </div>
           <div class="col-10 col-sm-10 col-md-8 align-self-center">
             <div class="form-group">
-              <h3><label class=" form-control-label">{{'DASHBOARD.SIDEBAR.TABS.ANNOUNCEMENTS.TABS.CREATE_ANNOUNCEMENT.FORM.TITLE' | translate}}</label></h3>
+              <h3><label class=" form-control-label">{{'DASHBOARD.SIDEBAR.TABS.FORMS.TABS.CREATE_FORM.FORM.TITLE' |
+                  translate}}</label></h3>
               <input class="form-control" formControlName="title" type="text" required>
             </div>
             <div class="form-group">
-              <h3> <label class="form-control-label">{{'DASHBOARD.SIDEBAR.TABS.ANNOUNCEMENTS.TABS.CREATE_ANNOUNCEMENT.FORM.TEXT' | translate}}</label></h3>
-              <textarea class="form-control" formControlName="text" id="exampleTextarea" rows="3"  required></textarea>
+              <h3> <label class="form-control-label">{{'DASHBOARD.SIDEBAR.TABS.FORMS.TABS.CREATE_FORM.FORM.TEXT' |
+                  translate}}</label></h3>
+              <textarea class="form-control" formControlName="text" id="exampleTextarea" rows="3" required></textarea>
             </div>
             <div class="form-group">
               <div class="text-center">
                 <div *ngIf="editOnly && getUserRole() !== 'user'">
-                <input type="submit" class="btn btn-primary" (click)="save()" value="{{'DASHBOARD.SIDEBAR.TABS.ANNOUNCEMENTS.TABS.CREATE_ANNOUNCEMENT.FORM.BUTTON.SAVE_CHANGES' | translate}}" [disabled]="!announcementForm.valid">
+                  <input type="submit" class="btn btn-primary" (click)="save()"
+                    value="{{'DASHBOARD.SIDEBAR.TABS.FORMS.TABS.CREATE_FORM.FORM.BUTTON.SAVE_CHANGES' | translate}}"
+                    [disabled]="!announcementForm.valid">
                 </div>
                 <div *ngIf="!editOnly">
-                  <div *ngIf="getUserRole() !== 'user'" class="form-check my-2">
-                    <label class="form-check-label" for="autoSizingCheck">
-                      <input class="form-check-input" formControlName="important" name="important" value="important" type="checkbox" id="autoSizingCheck">
-                      {{'DASHBOARD.SIDEBAR.TABS.ANNOUNCEMENTS.TABS.CREATE_ANNOUNCEMENT.FORM.IMPORTANT' | translate}}
-                    </label>
-                  </div>
-                <input  type="submit" class="btn btn-success"   (click)="add()" value="{{'DASHBOARD.SIDEBAR.TABS.ANNOUNCEMENTS.TABS.CREATE_ANNOUNCEMENT.FORM.BUTTON.ADD' | translate}}" [disabled]="!announcementForm.valid">
-              </div>
+                  <input type="submit" class="btn btn-success" (click)="add()"
+                    value="{{'DASHBOARD.SIDEBAR.TABS.FORMS.TABS.CREATE_FORM.FORM.BUTTON.ADD' | translate}}"
+                    [disabled]="!announcementForm.valid">
+                </div>
               </div>
             </div>
           </div>

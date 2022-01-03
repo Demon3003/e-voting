@@ -19,6 +19,7 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Autowired
     private NotificationDao notificationDao;
+
     @Autowired
     private final SimpMessagingTemplate template;
 
@@ -41,7 +42,6 @@ public class NotificationServiceImpl implements NotificationService {
     public void dispatch(String sessionId) {
         SimpMessageHeaderAccessor headerAccessor = SimpMessageHeaderAccessor.create(SimpMessageType.MESSAGE);
         headerAccessor.setSessionId(sessionId);
-        headerAccessor.setLeaveMutable(true);
         template.convertAndSendToUser(
                 sessionId,
                 "/notification",
@@ -62,11 +62,13 @@ public class NotificationServiceImpl implements NotificationService {
         if(getKey(not.getUserId()) != null)
             dispatch(getKey(not.getUserId()));
     }
+
     @Transactional
     @Override
     public void update(Notification not) {
         notificationDao.update(not);
     }
+
     @Transactional
     @Override
     public void delete(List<Notification> notifications) {

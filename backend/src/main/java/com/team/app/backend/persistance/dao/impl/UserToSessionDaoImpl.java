@@ -23,7 +23,6 @@ public class UserToSessionDaoImpl implements UserToSessionDao {
     public UserToSession save(UserToSession userToSession) {
         String sql = "INSERT INTO user_to_ses (ses_id, user_id, score, time) VALUES ( ?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        System.out.println();
         jdbcTemplate.update(
                 connection -> {
                     PreparedStatement ps = connection.prepareStatement(

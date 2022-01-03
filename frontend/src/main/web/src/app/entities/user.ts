@@ -1,3 +1,6 @@
+import { District } from "./district";
+import { Election } from "./election";
+
 export interface User {
   id: string;
   firstName: string;
@@ -13,4 +16,7 @@ export interface User {
   image?: string;
   token?: string;
   joined?: boolean;
+  district?: District;
+  elections?: Election[];
+  passport?: string;
 }

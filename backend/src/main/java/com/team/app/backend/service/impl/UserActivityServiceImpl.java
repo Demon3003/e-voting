@@ -1,6 +1,6 @@
 package com.team.app.backend.service.impl;
 
-import com.team.app.backend.persistance.dao.AnnouncementDao;
+import com.team.app.backend.persistance.dao.FormDao;
 import com.team.app.backend.persistance.dao.QuizDao;
 import com.team.app.backend.persistance.dao.UserActivityDao;
 import com.team.app.backend.persistance.model.Setting;
@@ -21,7 +21,7 @@ public class UserActivityServiceImpl implements UserActivityService {
     QuizDao quizDao;
 
     @Autowired
-    AnnouncementDao announcementDao;
+    FormDao formDao;
 
     @Override
     public void createUserActivity(UserActivity userActivity) {
@@ -47,7 +47,7 @@ public class UserActivityServiceImpl implements UserActivityService {
     public List<UserActivity>  getFriendsActivities(Long user_id) {
         List<UserActivity> userActivityList= userActivityDao.getFriendsActivities(user_id);
         for(UserActivity userActivity:userActivityList){
-            if(userActivity.getCategoryId()==4)userActivity.setElem_name(announcementDao.get(userActivity.getElem_id()).getTitle());
+            if(userActivity.getCategoryId()==4)userActivity.setElem_name(formDao.get(userActivity.getElem_id()).getTitle());
         }
         return userActivityList;
     }

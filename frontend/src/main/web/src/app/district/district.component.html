@@ -1,0 +1,52 @@
+<div *ngIf="district != null" class="container-fluid">
+    <div class="card  mb-3" style="color: #2d2d2d;">
+        <div class="row no-gutters">
+            <div class="col">
+                <div class="row justify-content-center">
+                    <div class=" col-4 col-sm-3 col-md-3 col-lg-2 align-self-center pr-1 ">
+                        <img [src]="imageUrl" style="max-height: 350px;" class="card-img" alt="news">
+                    </div>
+                    <div class="col-10 col-sm-9 col-md-9 col-lg-10 align-self-center">
+                        <div class="row">
+                            <div class="col">
+                                <div class="alert alert-danger" [hidden]="!error">
+                                    {{'DASHBOARD.SIDEBAR.TABS.FORMS.TABS.CREATE_FORM.ALERT' | translate}}
+                                </div>
+                                <div class="alert alert-danger" [hidden]="!message">
+                                    {{message}}
+                                </div>
+                                <h2 class="card-title"><strong>{{district.number + ' '+ district.city}}</strong></h2>
+                                <p class="card-text mb-4">{{district.address}}</p>
+                            </div>
+                        </div>
+                        <h6 class="text-center text-muted">
+                            <!-- <div class="row mt-4 justify-content-end">
+
+                                <div class="col align-self-end">
+                                    <p class="card-text mr-1 text-center">
+                                        <strong>{{'DASHBOARD.SIDEBAR.TABS.FORMS.TABS.FORMS_APPROVE.ELECTION_START_DATE'
+                                            | translate}} {{election.startDate | date:'MM/dd/yyyy'}}</strong></p>
+                                </div>
+                                <div class="col align-self-end">
+                                    <p class="card-text mr-1 text-center">
+                                        <strong>{{'DASHBOARD.SIDEBAR.TABS.FORMS.TABS.FORMS_APPROVE.ELECTION_END_DATE' |
+                                            translate}} {{election.endDate | date:'MM/dd/yyyy'}}</strong></p>
+                                </div>
+
+                            </div> -->
+                        </h6>
+                        <div *ngIf="getRole() === 'super admin'" class="mt-5 align-items-end">
+                            <a (click)="edit()"
+                                class="card-link btn border">{{'DASHBOARD.SIDEBAR.TABS.FORMS.TABS.FORMS_APPROVE.BUTTON.EDIT'
+                                | translate}}</a>
+                            <a (click)="delete()"
+                                class="btn border mx-2">{{'DASHBOARD.SIDEBAR.TABS.FORMS.TABS.FORMS_APPROVE.BUTTON.DELETE'
+                                | translate}}</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

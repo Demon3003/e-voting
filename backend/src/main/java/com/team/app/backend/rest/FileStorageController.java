@@ -1,15 +1,13 @@
 package com.team.app.backend.rest;
 
-import com.team.app.backend.persistance.model.Achievement;
 import com.team.app.backend.service.AmazonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/storage/")
 public class FileStorageController {
 

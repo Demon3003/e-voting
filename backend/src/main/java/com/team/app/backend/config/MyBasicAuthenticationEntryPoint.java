@@ -22,7 +22,7 @@ public class MyBasicAuthenticationEntryPoint extends BasicAuthenticationEntryPoi
 
     @Override
     public void afterPropertiesSet() {
-        setRealmName("brain-duel-api");
+        setRealmName("e-vote-api");
         super.afterPropertiesSet();
     }
 }

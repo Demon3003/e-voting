@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 
 @Getter
 @Setter
-public class UserActivity extends Message{
+public class UserActivity extends BaseForm{
     private String username;
     private Long elem_id;
     private String elem_name;

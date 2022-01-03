@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import lombok.extern.slf4j.Slf4j;
+
 import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,12 +18,16 @@ import java.io.IOException;
 import java.util.Date;
 
 @Service
+@Slf4j
 public class AmazonClient {
 
     private AmazonS3 s3client;
 
-    @Value("${s3.endpointUrl}")
+    @Value("${application.url}")
     private String endpointUrl;
+
+    @Value("${img.upload.path}")
+    private String uploadPath;
 
     @Value("${s3.bucketName}")
     private String bucketName;
@@ -45,20 +51,33 @@ public class AmazonClient {
                 .build();
     }
 
-    public String uploadFile(MultipartFile multipartFile) throws Exception {
+    public String uploadFile(MultipartFile multipartFile) {
 
         String fileUrl = "";
         try {
             File file = convertMultiPartToFile(multipartFile);
-            String fileName = generateFileName(multipartFile);
-            fileUrl = endpointUrl + "/" + fileName;
-            uploadFileTos3bucket(fileName, file);
-            file.delete();
+            fileUrl = endpointUrl + "/img/" + file.getName();
+            log.info("dmzh100: fileUrl: {}", fileUrl);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return fileUrl;
     }
+
+    // public String uploadFile(MultipartFile multipartFile) {
+
+    //     String fileUrl = "";
+    //     try {
+    //         File file = convertMultiPartToFile(multipartFile);
+    //         String fileName = generateFileName(multipartFile);
+    //         fileUrl = endpointUrl + "/" + fileName;
+    //         uploadFileTos3bucket(fileName, file);
+    //         file.delete();
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
+    //     return fileUrl;
+    // }
 
     public String deleteFileFromS3Bucket(String fileUrl) {
         String fileName = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
@@ -66,12 +85,12 @@ public class AmazonClient {
         return "Successfully deleted";
     }
 
-    private void uploadFileTos3bucket(String fileName, File file) {
-        s3client.putObject(bucketName, fileName, file);
-    }
+    // private void uploadFileTos3bucket(String fileName, File file) {
+    //     s3client.putObject(bucketName, fileName, file);
+    // }
 
     private File convertMultiPartToFile(MultipartFile file) throws IOException {
-        File convFile = new File(file.getOriginalFilename());
+        File convFile = new File(generateFileName(file));
         FileOutputStream fos = new FileOutputStream(convFile);
         fos.write(file.getBytes());
         fos.close();
@@ -79,6 +98,7 @@ public class AmazonClient {
     }
 
     private String generateFileName(MultipartFile multiPart) {
-        return new Date().getTime() + "-" + multiPart.getOriginalFilename().replace(" ", "_");
+        return uploadPath + "/" +
+            (new Date().getTime() + "-" + multiPart.getOriginalFilename().replace(" ", "_"));
     }
 }

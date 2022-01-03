@@ -11,7 +11,6 @@ import com.team.app.backend.persistance.model.UserStatus;
 import com.team.app.backend.service.EmailsService;
 import com.team.app.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -70,7 +69,7 @@ public class UserServiceImpl implements UserService {
                 userDto.getEmail(),
                 userDto.getImage(),
                 new Date(),
-                "test",
+                "",
                 userDto.getStatus(),
                 userDto.getRole());
         userDao.update(user);
@@ -107,7 +106,7 @@ public class UserServiceImpl implements UserService {
         user.setEmail(userCreateDto.getEmail());
         user.setUsername(userCreateDto.getUsername());
         user.setPassword(userCreateDto.getPassword());
-        user.setActivate_link("ttest");
+        user.setActivate_link("");
         user.setRegistr_date(new Date());
         user.setRole(new Role(userCreateDto.getRole().getName().equals("admin") ? 3L : 2L ,userCreateDto.getRole().getName()));
         user.setStatus(new UserStatus(2L,"ativated"));
@@ -118,13 +117,14 @@ public class UserServiceImpl implements UserService {
     public boolean  checkTokenAvailability(String token){
         return userDao.checkTokenAvailability(token);
     }
+
     @Override
     public void registerNewUserAccount(UserRegistrationDto userDto)
             throws UserAlreadyExistsException {
 
-        if (isUserRegistered(userDto.getUsername())) {
-            throw new UserAlreadyExistsException();
-        }
+        // if (isUserRegistered(userDto.getUsername())) {
+        //     throw new UserAlreadyExistsException();
+        // }
 
         User user = new User();
 
@@ -133,16 +133,17 @@ public class UserServiceImpl implements UserService {
         user.setEmail(userDto.getEmail());
         user.setUsername(userDto.getUsername());
         user.setPassword(userDto.getPassword());
-        String token =UUID.randomUUID().toString();
+        String token = UUID.randomUUID().toString();
         while(checkTokenAvailability(token)){
-            token =UUID.randomUUID().toString();
+            token = UUID.randomUUID().toString();
         }
         user.setActivate_link(token);
         user.setRegistr_date(new Date());
-        user.setRole(new Role(1L,"USER"));
-        user.setStatus(new UserStatus(1L,"REGISTERED"));
+        user.setRole(new Role(1L,"user"));
+        user.setStatus(new UserStatus(1L,"registered"));
 
         mailSender.send(emailsService.activationLetter(user));
+
         userDao.save(user);
 
     }
@@ -157,15 +158,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean checkRegistDate(User user) {
-        System.out.println("time"+user.getRegistr_date().getTime() + "    " + new Date().getTime());
+
         return new Date().getTime()-user.getRegistr_date().getTime()<86400000;
     }
 
-    /**
-     * checks if user exists in the database
-     * @param username user's username
-     * @return true if user exists in the database; otherwise false
-     */
     @Override
     public boolean isUserRegistered(String username) {
         return userDao.findByUsername(username) != null;
@@ -194,15 +190,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void changeLanguage(String lang , Long userId) {
-        if(lang.equals("en"))
+        if (lang.equals("en")) {
             userDao.changeLanguage(ENGLISH_ID,userId);
-        else
+        } else {
             userDao.changeLanguage(UKRAINE_ID,userId);
+        }
     }
     @Override
     public Locale getUserLanguage(Long id) {
         String lan = userDao.getUserLanguage(id);
-        if(lan.equals("ua")) {
+        if (lan.equals("ua")) {
             return new Locale("ua", "ua");
         } else {
             return Locale.US;

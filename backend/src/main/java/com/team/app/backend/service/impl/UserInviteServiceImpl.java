@@ -3,20 +3,24 @@ package com.team.app.backend.service.impl;
 import com.team.app.backend.persistance.dao.NotificationDao;
 import com.team.app.backend.persistance.dao.UserInviteDao;
 import com.team.app.backend.persistance.model.Notification;
+import com.team.app.backend.persistance.model.User;
 import com.team.app.backend.persistance.model.UserInvite;
+import com.team.app.backend.persistance.repositories.UserRepo;
 import com.team.app.backend.service.UserInviteService;
 import com.team.app.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 
 @Service
 @Transactional
+@Slf4j
 public class UserInviteServiceImpl implements UserInviteService {
 
     private final long NOTIFICATION_INVITE = 3L;
@@ -32,6 +36,9 @@ public class UserInviteServiceImpl implements UserInviteService {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    private UserRepo userRepo;
 
     @Override
     public void sendUserInvite(UserInvite userInvite) {
@@ -73,5 +80,11 @@ public class UserInviteServiceImpl implements UserInviteService {
     @Override
     public void deleteUserFromList(Long userId, Long deleteId) {
         userInviteDao.deleteFriendFromList(userId, deleteId);
+    }
+
+    @Override
+    public List<User> getAllPendingUsers() {
+
+        return userRepo.getUserByStatusId(5L);
     }
 }

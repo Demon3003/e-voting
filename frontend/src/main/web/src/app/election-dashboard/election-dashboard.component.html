@@ -1,0 +1,35 @@
+<div class="container-fluid mt-5" id="onTop">
+    <div class= "raw">
+    <div class="col-lg-12 order-lg-2 mt-2">
+      <ul *ngIf="getRole() !== 'user'" class="nav nav-tabs">
+        <li class="nav-item" >
+          <a data-target="#elections" (click)="editOnly = false" data-toggle="tab" class="nav-link active show text-white" role="button" aria-expanded="false">
+            <strong>{{'DASHBOARD.SIDEBAR.TABS.FORMS.TABS.FORMS.ELECTION_TITLE' | translate}}</strong></a>
+        </li>
+        <li class="nav-item" *ngIf="getRole() ==='super admin'">
+          <a  data-target="#create" data-toggle="tab" role="button" aria-expanded="false" class="nav-link text-white">
+            <strong>{{'DASHBOARD.SIDEBAR.TABS.FORMS.TABS.CREATE_FORM.ELECTION_TITLE' | translate}}</strong></a>
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="getRole() === 'user'">
+      <hr class="solid">
+      <h2>{{'DASHBOARD.SIDEBAR.TABS.VOTERS.ELECTIONS_FOR_YOU' | translate}}</h2>
+      <hr class="solid">
+  </div>
+    <div class="pt-4 tab-content">
+      <div  class="tab-pane active show" id="elections">
+        <div *ngIf="!editOnly" class="raw">
+          <app-election  (onChanged)="editElection($event)" *ngFor="let election of elections" [election] = "election"> </app-election>
+        </div>
+          <app-election-edit *ngIf="editOnly" [election]="election"  [editOnly]="editOnly"></app-election-edit>
+        </div>
+
+      <div  class="tab-pane" id="create">
+        <div class="raw">
+          <app-election-edit [editOnly]="false"></app-election-edit>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

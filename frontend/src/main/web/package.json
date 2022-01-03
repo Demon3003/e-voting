@@ -11,6 +11,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-material-components/datetime-picker": "^2.0.4",
     "@angular/animations": "~9.0.7",
     "@angular/cdk": "~9.2.1",
     "@angular/common": "~9.0.7",
@@ -21,6 +22,7 @@
     "@angular/platform-browser": "~9.0.7",
     "@angular/platform-browser-dynamic": "~9.0.7",
     "@angular/router": "~9.0.7",
+    "@mat-datetimepicker/core": "^6.0.2",
     "@ngx-translate/core": "^12.1.2",
     "@ngx-translate/http-loader": "^4.0.0",
     "@stomp/rx-stomp": "^0.3.5",

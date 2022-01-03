@@ -3,13 +3,14 @@ import {HttpClient, HttpEventType, HttpHeaders} from "@angular/common/http";
 import {catchError, map} from "rxjs/operators";
 import {UserService} from "./user.service";
 import {Observable, of} from "rxjs";
+import { APP_URL } from '../parameters';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UploadFilesService {
-  // private apiURL = "http://localhost:8080/api/storage";
-  private apiURL = "/api/storage";
+  private apiURL = `${APP_URL}/api/storage`;
+  // private apiURL = "/api/storage";
   private userId;
   private readonly token: string;
   private httpHeader: HttpHeaders;

@@ -1,0 +1,25 @@
+<div class="container d-flex justify-content-left">
+  <!-- <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    {{'DASHBOARD.SIDEBAR.TABS.VOTERS.INVITES' | translate}} <span class="badge badge-light">{{userInvites.length}}</span>
+    <span class="sr-only">unread messages</span>
+  </button> -->
+</div>
+<!-- <div class="collapse" id="collapseExample">
+  <app-user-invite-card *ngFor="let userInvite of userInvites" [userInvite]="userInvite" [isFriendList]="false"></app-user-invite-card>
+</div> -->
+
+<div *ngIf="pendingVotersList.length > 0; else elseBlock">
+  <hr class="solid">
+  <h2>{{'DASHBOARD.SIDEBAR.TABS.VOTERS.LABEL' | translate}}</h2>
+  <hr class="solid">
+  <div >
+    <!-- <app-user-invite-card *ngFor="let friend of friendsList" [userInvite]="friend" [isFriendList]="true"></app-user-invite-card> -->
+    <app-user-card *ngFor="let user of pendingVotersList" (onChanged)="refreshVotersList($event)"  [user]="user"></app-user-card>
+  </div>
+  </div>
+<ng-template #elseBlock>
+  <hr class="solid">
+  <h2>{{'DASHBOARD.SIDEBAR.TABS.VOTERS.NO_TO_SHOW' | translate}}</h2>
+  <hr class="solid">
+</ng-template>
+

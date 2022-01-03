@@ -12,10 +12,12 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.core.env.Environment;
 
 import java.util.*;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("api")
 public class RegistrationController {
 
@@ -30,6 +32,9 @@ public class RegistrationController {
     @Autowired
     MessageSource messageSource;
 
+    @Autowired
+    private Environment env;
+
     @PostMapping("/sign-up")
     public ResponseEntity registerUserAccount(
             @RequestBody UserRegistrationDto userDto) {
@@ -40,7 +45,9 @@ public class RegistrationController {
         }
         catch (UserAlreadyExistsException e) {
             String[] params = new String[]{userDto.getUsername()};
-            return  ResponseEntity.badRequest().body(messageSource.getMessage("user.exist", params, LocaleContextHolder.getLocale()));
+            return  ResponseEntity
+                .badRequest()
+                .body(messageSource.getMessage("user.exist", params, LocaleContextHolder.getLocale()));
 
         }
         return ResponseEntity.ok().body(new HashMap<String,String>());

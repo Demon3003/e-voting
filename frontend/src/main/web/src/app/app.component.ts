@@ -31,7 +31,7 @@ export class AppComponent implements OnDestroy, OnInit{
   setTranslate(language: string) {
     localStorage.setItem('language', language);
     this.translate.use(language);
-    this.settingsService.setLanguage(language, this.userService.user);
+    this.settingsService.setLanguage(language, this.userService.user).subscribe();
   }
 
   ngOnInit(): void {
@@ -54,9 +54,17 @@ export class AppComponent implements OnDestroy, OnInit{
       _ => {this.router.navigateByUrl('/login');
             this.notificationService.disconnect()});
   }
+
+  reloadWindow() {
+    this.router.navigateByUrl('/dashboard/AddProfile');
+    window.location.replace('http://localhost:4200/#/dashboard/AddProfile');
+  
+  }
+
   getRole() {
     return this.userService.user.role.name;
   }
+
   authenticated() {
     return this.userService.authenticated;
   }

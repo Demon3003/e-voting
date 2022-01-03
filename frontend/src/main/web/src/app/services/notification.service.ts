@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {UserService} from "./user.service";
 import {Observable, of, throwError} from "rxjs";
 import {Notification} from '../entities/notification';
+import { APP_URL } from '../parameters';
 declare var SockJS;
 declare var Stomp;
 
@@ -12,16 +13,16 @@ declare var Stomp;
 export class NotificationService {
 
 
-  private serverUrl = 'http://localhost:8080/ws';
+  private serverUrl = `${APP_URL}/ws`;
   notifications: Notification[] = [];
- public stompClient;
-  
+  public stompClient;
+
   constructor(private http: HttpClient, private userService: UserService) {
     if (userService.authenticated && userService.user.role.name === 'user') {
       this.initializeWebSocketConnection();
     }
   }
- 
+
   initializeWebSocketConnection() {
     if (this.userService.user.role.name === 'user') {
       const ws = new SockJS(this.serverUrl);
@@ -39,7 +40,7 @@ export class NotificationService {
       });
     }
   }
-  
+
   disconnect() {
     if(this.stompClient) {
       this.stompClient.disconnect();

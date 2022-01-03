@@ -9,32 +9,23 @@ import com.team.app.backend.security.jwt.JwtTokenProvider;
 import com.team.app.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContext;
+
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.i18n.LocaleContextResolver;
-import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.i18n.SessionLocaleResolver;
-import org.springframework.web.servlet.support.RequestContextUtils;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
-import java.util.logging.Logger;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api")
 public class LoginController {
@@ -57,7 +48,6 @@ public class LoginController {
         Map<String, String> model = new HashMap<String, String>();
         try {
             String username = requestDto.getUsername();
-            System.out.println(username +" "+ requestDto.getPassword());
 
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, requestDto.getPassword()));
             User user = userService.findByUsername(username);
@@ -86,7 +76,7 @@ public class LoginController {
 
             response.put("username", username);
             response.put("token", token);
-
+            
             return ResponseEntity.ok().body(response);
 
         } catch (AuthenticationException e) {
@@ -110,7 +100,7 @@ public class LoginController {
 
     public ResponseEntity recovery(@RequestBody RecoveryDto recoveryDto){
         String email = recoveryDto.getEmail();
-        System.out.println(email);
+
         if(userService.isEmailRegistered(email)){
             userService.sendRecoveryLetter(email);
             return ResponseEntity.ok(true);

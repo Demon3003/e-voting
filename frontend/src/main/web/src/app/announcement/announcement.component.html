@@ -10,26 +10,33 @@
             <div class="row">
               <div class="col">
                 <div class="alert alert-danger" [hidden]="!error" >
-                  {{'DASHBOARD.SIDEBAR.TABS.ANNOUNCEMENTS.TABS.CREATE_ANNOUNCEMENT.ALERT' | translate}}
+                  {{'DASHBOARD.SIDEBAR.TABS.FORMS.TABS.CREATE_FORM.ALERT' | translate}}
                 </div>
                 <div class="alert alert-danger" [hidden]="!message" >
                   {{message}}
                 </div>
-                <h2 class="card-title" style=""><strong>{{announcement.title}}</strong></h2>
+                <h2 class="card-title"><strong>{{announcement.title}}</strong></h2>
                 <p class="card-text">{{announcement.text}}</p>
               </div>
             </div>
-            <div class="row justify-content-end">
+            <div *ngIf="announcement.statusId != voteMode" class="row justify-content-end">
               <div class="col align-self-end">
-
-                <p class="card-text mr-4 text-center"><small class="text-muted"><strong>{{'DASHBOARD.SIDEBAR.TABS.ANNOUNCEMENTS.TABS.ANNOUNCEMENT_APPROVE.CREATED' | translate}} {{announcement.date | date:'MM/dd/yyyy'}}</strong></small></p>
+                <p class="card-text mr-4 text-center"><small class="text-muted"><strong>{{'DASHBOARD.SIDEBAR.TABS.FORMS.TABS.FORMS_APPROVE.CREATED' | translate}} {{announcement.date | date:'MM/dd/yyyy'}}</strong></small></p>
               </div>
             </div>
-            <div *ngIf="getRole() !== 'user'" class="mt-5 align-items-end" >
-              <a  (click)="edit()" class="card-link btn border">{{'DASHBOARD.SIDEBAR.TABS.ANNOUNCEMENTS.TABS.ANNOUNCEMENT_APPROVE.BUTTON.EDIT' | translate}}</a>
-              <a *ngIf="announcement.statusId !== announcementCreated" (click)="delete()" class="btn border mx-2">{{'DASHBOARD.SIDEBAR.TABS.ANNOUNCEMENTS.TABS.ANNOUNCEMENT_APPROVE.BUTTON.DELETE' | translate}}</a>
-              <a *ngIf="announcement.statusId === announcementCreated" (click)="approve(true)" class="btn border mx-2">{{'DASHBOARD.SIDEBAR.TABS.ANNOUNCEMENTS.TABS.ANNOUNCEMENT_APPROVE.BUTTON.APPROVE' | translate}}</a>
-              <a *ngIf="announcement.statusId === announcementCreated" (click)="approve(false)" class="btn border">{{'DASHBOARD.SIDEBAR.TABS.ANNOUNCEMENTS.TABS.ANNOUNCEMENT_APPROVE.BUTTON.DISAPPROVE' | translate}}</a>
+            <div *ngIf="getRole() !== 'user' && announcement.statusId != voteMode" class="mt-5 align-items-end" >
+              <a  (click)="edit()" class="card-link btn border">{{'DASHBOARD.SIDEBAR.TABS.FORMS.TABS.FORMS_APPROVE.BUTTON.EDIT' | translate}}</a>
+              <a *ngIf="announcement.statusId !== announcementCreated" (click)="delete()" class="btn border mx-2">{{'DASHBOARD.SIDEBAR.TABS.FORMS.TABS.FORMS_APPROVE.BUTTON.DELETE' | translate}}</a>
+              <a *ngIf="announcement.statusId === announcementCreated" (click)="approve(true)" class="btn border mx-2">{{'DASHBOARD.SIDEBAR.TABS.FORMS.TABS.FORMS_APPROVE.BUTTON.APPROVE' | translate}}</a>
+              <a *ngIf="announcement.statusId === announcementCreated" (click)="approve(false)" class="btn border">{{'DASHBOARD.SIDEBAR.TABS.FORMS.TABS.FORMS_APPROVE.BUTTON.DISAPPROVE' | translate}}</a>
+            </div>
+            <div *ngIf="announcement.statusId == voteMode" class="mt-5 align-items-end" >
+              <a *ngIf="!sure"  (click)="vote()" class="card-link btn border">{{'DASHBOARD.SIDEBAR.TABS.FORMS.TABS.FORMS_APPROVE.BUTTON.VOTE' | translate}}</a>
+              <div class="mb-2" *ngIf="sure">
+                <h2 class="card-title">{{'DASHBOARD.SIDEBAR.TABS.FORMS.TABS.FORMS_APPROVE.SURE' | translate}}</h2>
+              <a  (click)="sendVoice()" class="card-link btn border">{{'DASHBOARD.SIDEBAR.TABS.FORMS.TABS.FORMS_APPROVE.BUTTON.YES' | translate}}</a>
+              <a  (click)="decline()" class="card-link btn border">{{'DASHBOARD.SIDEBAR.TABS.FORMS.TABS.FORMS_APPROVE.BUTTON.NO' | translate}}</a>
+              </div>
             </div>
           </div>
         </div>

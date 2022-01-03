@@ -6,7 +6,9 @@ import com.team.app.backend.persistance.model.Achievement;
 import com.team.app.backend.persistance.model.UserAchievement;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -17,7 +19,9 @@ import java.util.List;
 
 @Repository
 public class AchievementDaoImpl implements AchievementDao {
+
     private final JdbcTemplate jdbcTemplate;
+    
     @Autowired
     private Environment env;
 

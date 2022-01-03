@@ -19,7 +19,7 @@ public class SqlExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(DataAccessException.class)
     protected ResponseEntity handleDataAccessException(DataAccessException ex) {
-        log.error(ex.toString());
+        log.error("Exception: {}", ex);
         return  ResponseEntity.badRequest().body(messageSource
                 .getMessage("data.base.error", null, LocaleContextHolder.getLocale()));
     }

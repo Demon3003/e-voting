@@ -38,7 +38,7 @@ export class UploadFileComponent implements OnInit {
       nextSibling.innerText = fileName;
       file = event.target.files[0];
       // let image;
-      //
+      
       // if (file) {
       //   image = new Image();
       //   image.src = _URL.createObjectURL(file);

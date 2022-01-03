@@ -1,33 +1,86 @@
 <div class="container-fluid my-1">
-  <div class="card flex-fill"  style="color: #2d2d2d;height: 55%">
+  <div class="card flex-fill" style="color: #2d2d2d;height: 55%">
     <div class="row flex-fill h-auto no-gutters align-items-center">
       <div class="col-4 row-4 col-sm-1 col-md-2 col-lg-1 ">
-        <img src="https://img.icons8.com/plasticine/100/000000/user-male-circle.png" class="card-img rounded-circle">
+        <img [src]="user.image || imageUrl" style="height: 100px; width: 100px" alt="avatar" class="img-thumbnail">
         <h5>
           <span class="badge bg-primary" style="color: white;">{{user.username}}</span>
         </h5>
 
       </div>
-        <div class="col-2 col-sm-5 col-md-auto col-lg-6 text-center align-self-center">
-          <div *ngIf="userRole() ==='user' && getUserId() !== user.id" class="input-group justify-content-center">
-            <form [formGroup]="inviteForm" novalidate>
-              <input id="message" class="form-control" formControlName="inviteText" required placeholder="{{'DASHBOARD.SEARCH.USER_CARD.INVITE_MESSAGE' | translate}}" aria-label="Invite message" aria-describedby="basic-addon2">
-            </form>
-            <div class="input-group-append mr-5">
-              <button [disabled]="inviteForm.invalid || clicked" type="submit" class="btn btn-primary" (click)="sendInvite()">{{nameSendButton}}</button>
-            </div>
+      <div class="col-2 col-sm-5 col-md-auto col-lg-6 text-center align-self-center">
+        <div *ngIf="userRole() ==='user' && getUserId() !== user.id" class="input-group justify-content-center">
+          <form [formGroup]="inviteForm" novalidate>
+            <input id="message" class="form-control" formControlName="inviteText" required
+              placeholder="{{'DASHBOARD.SEARCH.USER_CARD.INVITE_MESSAGE' | translate}}" aria-label="Invite message"
+              aria-describedby="basic-addon2">
+          </form>
+          <div class="input-group-append mr-5">
+            <button [disabled]="inviteForm.invalid || clicked" type="submit" class="btn btn-primary"
+              (click)="sendInvite()">{{nameSendButton}}</button>
+          </div>
+        </div>
+        <div
+          *ngIf="(userRole() ==='super admin' || userRole() ==='admin') && user.status.id == 5 && !approved; else elseBlock">
+          <div class="btn-group text-right mr-2">
+            <a (click)="approveProfile()"
+              class="btn  btn-outline-primary">{{'DASHBOARD.SEARCH.USER_CARD.ADMIN_BUTTON.APPROVE' | translate}}</a>
           </div>
           <div class="btn-group text-right">
-            <a *ngIf="userRole() ==='super admin' || userRole() ==='admin'" (click)="goToProfile()" class="btn  btn-outline-primary">{{'DASHBOARD.SEARCH.USER_CARD.ADMIN_BUTTON.EDIT' | translate}}</a>
+            <a (click)="disapproveProfile()"
+              class="btn  btn-outline-primary">{{'DASHBOARD.SEARCH.USER_CARD.ADMIN_BUTTON.DISAPPROVE' | translate}}</a>
           </div>
         </div>
-        <div class="col-12 col-sm-6 col-md-7 col-lg-5">
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">{{'DASHBOARD.SEARCH.USER_CARD.FIRST_NAME' | translate}} {{user.firstName}}</li>
-              <li class="list-group-item">{{'DASHBOARD.SEARCH.USER_CARD.LAST_NAME' | translate}} {{user.lastName}}</li>
-              <li class="list-group-item">{{'DASHBOARD.SEARCH.USER_CARD.EMAIL' | translate}} {{user.email}}</li>
-            </ul>
+        <div *ngIf="approved">
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="bg-primary mr-3" style="border-radius: 10px;" appearance="fill">
+                <mat-label>{{'DASHBOARD.SIDEBAR.TABS.FORMS.TABS.CREATE_FORM.FORM.ASSIGN_ELECTIONS'
+                  |
+                  translate}}</mat-label>
+                <mat-select [(value)]="selectedElections" multiple>
+                  <mat-option *ngFor="let election of elections" [value]="election.id">
+                    {{election.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field class="bg-primary" style="border-radius: 10px;" appearance="fill">
+                <mat-label>{{'DASHBOARD.SIDEBAR.TABS.FORMS.TABS.CREATE_FORM.FORM.ASSIGN_DISTRICT'
+                  |
+                  translate}}</mat-label>
+                <mat-select [(value)]="selectedDistrict">
+                  <mat-option *ngFor="let district of districts" [value]="district.id">
+                    {{district.number + ' ' + district.city}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col">
+              <div class="btn-group text-right">
+                <a (click)="assign()"
+                  class="btn  btn-outline-primary">{{'DASHBOARD.SEARCH.USER_CARD.ADMIN_BUTTON.ASSIGN' | translate}}</a>
+              </div>
+            </div>
+          </div>
         </div>
+        <ng-template #elseBlock>
+          <div class="btn-group text-right">
+            <a *ngIf="(userRole() ==='super admin' || userRole() ==='admin') && user.role.name !== 'user'"
+              (click)="goToProfile()" class="btn  btn-outline-primary">{{'DASHBOARD.SEARCH.USER_CARD.ADMIN_BUTTON.EDIT'
+              | translate}}</a>
+          </div>
+        </ng-template>
+      </div>
+      <div class="col-12 col-sm-6 col-md-7 col-lg-5">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">{{'DASHBOARD.SEARCH.USER_CARD.FIRST_NAME' | translate}} {{user.firstName}}</li>
+          <li class="list-group-item">{{'DASHBOARD.SEARCH.USER_CARD.LAST_NAME' | translate}} {{user.lastName}}</li>
+          <li class="list-group-item">{{'DASHBOARD.SEARCH.USER_CARD.EMAIL' | translate}} {{user.email}}</li>
+          <li *ngIf="user.passport != null" class="list-group-item">{{'DASHBOARD.SEARCH.USER_CARD.PASSPORT' | translate}} {{user.passport}}</li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>

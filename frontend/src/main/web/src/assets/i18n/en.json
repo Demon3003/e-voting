@@ -1,25 +1,26 @@
 {
   "HOME": {
+    "VOTE": "Thank you for your voice!",
     "TITLE": "Welcome",
-    "LOGIN_TEXT": "Login to see your greeting",
-    "WELCOME": "We glad to see you"
+    "LOGIN_TEXT": "You have entered to the electronic vote system - E-Vote!",
+    "WELCOME": "We glad to see you!"
   },
 
   "HEADER": {
-    "BRAND": "BrainDuel",
+    "BRAND": "E-Vote",
     "HOME": "Home",
     "LOGIN": "Login",
     "LOGOUT": "Logout",
     "DASHBOARD": "Dashboard",
     "BUTTON": {
-      "CREATE QUIZ": "CREATE QUIZ",
+      "CREATE_CANDIDATE_FORM": "CREATE CANDIDATE FORM",
       "JOIN GAME":"JOIN GAME"
     }
   },
 
   "LOGIN": {
     "TITLE": "USER LOGIN",
-    "WELCOME": "Welcome to BrainDuel!",
+    "WELCOME": "Welcome to E-Vote!",
     "FORM": {
       "USERNAME": "USERNAME",
       "PASSWORD": "PASSWORD",
@@ -45,7 +46,7 @@
 
   "SIGN_UP": {
     "TITLE": "USER SIGN UP",
-    "TEXT": "for BrainDuel",
+    "TEXT": "for E-Vote",
     "FORM": {
       "USER_NAME": {
         "LABEL": "USERNAME",
@@ -55,6 +56,7 @@
         "LABEL": "FIRST NAME",
         "VALIDATION_EMPTY": "First name cannot be empty"
       },
+      "PASSPORT_EMPTY": "Passport number connot be empty",
       "LAST_NAME": {
         "LABEL": "LAST NAME",
         "VALIDATION_EMPTY": "Last name cannot be empty"
@@ -99,57 +101,91 @@
         "FIRST_NAME": "First name: ",
         "LAST_NAME": "Last name: ",
         "EMAIL": "Email: ",
+        "PASSPORT": "Passport number: ",
         "ADMIN_BUTTON": {
-          "EDIT": "Edit profile"
+          "EDIT": "Edit profile",
+          "APPROVE": "Approve profile",
+          "DISAPPROVE": "Disapprove profile",
+          "ASSIGN": "Assign"
         }
       },
       "CATEGORIES": "Categories"
     },
 
     "SIDEBAR": {
+      "ELECTIONS":"Elections",
+      "DISTRICTS":"Vote districts",
       "QUIZZES": "Quizzes",
       "PROFILE": " Profile",
-      "FRIENDS": " Friends",
-      "ADMINS_MODERATORS": " Admins/Moderators",
-      "MODERATORS": " Moderators",
+      "VOTERS": "Voters' profiles",
+      "ADMINS_SPECIALISTS": " Admins/Specialists",
+      "SPECIALISTS": " Specialists",
       "ACTIVITIES":" Friends activities",
-      "ANNOUNCEMENT": " Announcement",
+      "FORM": " Candidates' forms",
       "ACHIEVEMENTS": " Achievements",
       "SETTINGS": " Settings",
+      "STATUS": {
+        "ACTIVE" : "Your profile is verified",
+        "INACTIVE" : "Please fill out all info in your profile",
+        "PENDING" : "Your profile is checking",
+        "REJECTED" : "Your profile was rekected. Please see details in an email."
+      },  
       "TABS": {
-        "FRIENDS": {
-          "LABEL": "Friends",
+        "VOTERS": {
+          "LABEL": "Voters' profiles to check",
           "INVITES": "INVITES",
-          "NO_TO_SHOW": "No friends to show"
+          "NO_TO_SHOW": "No voters' profiles to check",
+          "DISTRICTS_FOR_YOU": "YOUR VOTE DISTRICT",
+          "ELECTIONS_FOR_YOU": "ELECTIONS FOR YOU"
         },
 
-        "ANNOUNCEMENTS": {
+        "FORMS": {
           "TABS": {
-            "ANNOUNCEMENTS": {
-              "TITLE": "Announcements"
+            "FORMS": {
+              "TITLE": "Candidates' forms",
+              "ELECTION_TITLE": "Election's froms",
+              "DISTRICT_TITLE": "Districts"
             },
 
-            "ANNOUNCEMENT_APPROVE": {
+            "FORMS_APPROVE": {
+              "SURE": "Are you sure?",
               "TITLE": "Announcements for approving",
               "NO_SHOW": "No announcements for approving",
               "CREATED": "Created",
+              "ELECTION_START_DATE": "Election start date",
+              "ELECTION_END_DATE": "Election end date",
               "BUTTON": {
                 "EDIT": "Edit",
                 "DELETE": "Delete",
                 "APPROVE": "Approve",
-                "DISAPPROVE": "Disapprove"
+                "DISAPPROVE": "Disapprove",
+                "VOTE": "Vote",
+                "YES": "YES",
+                "NO": "NO"
+          
               }
             },
-            "CREATE_ANNOUNCEMENT": {
-              "TITLE": "Create an announcement",
+            "CREATE_CANDIDATE_PROFILE": "Create candidate profile",
+            "CREATE_FORM": {
+              "TITLE": "Create a candidate form",
+              "ELECTION_TITLE": "Create election form",
+              "DISTRICT_TITLE": "Add new district",
               "FORM": {
                 "TITLE": "Title",
-                "TEXT": "Text",
+                "DISTRICT_TITLE": "District number",
+                "DISTRICT_CITY": "City",
+                "DISTRICT_ADDRESS": "Full address",
+                "DISTRICT_ELECTIONS": "Elections on a district",
+                "ASSIGN_ELECTIONS":"Assign elections",
+                "ASSIGN_DISTRICT":"Assign district",
+                "TEXT": "Description",
+                "START_DATE": "Choose start date fro election",
+                "END_DATE": "Choose end date fro election",
                 "BUTTON": {
                   "SAVE_CHANGES": "SAVE CHANGES",
                   "ADD": "ADD"
                 },
-                "SELECT_IMAGE": "Select an announcement image",
+                "SELECT_IMAGE": "Select a form image",
                 "CHOOSE_FILE": "CHOOSE FILE",
                 "IMPORTANT": "Mark as important"
               },
@@ -206,7 +242,7 @@
         },
 
 
-        "ADMINS_MODERATORS": {
+        "ADMINS_SPECIALISTS": {
           "EDIT": {
             "FORM": {
               "FIRST_NAME": "First name",
@@ -217,7 +253,7 @@
               "CONFIRM_PASSWORD": "Confirm password",
               "RADIO_BUTTON": {
                 "ADMIN": "Admin",
-                "MODERATOR": "Moderator"
+                "SPECIALIST": "Specialist"
               }
             },
             "UPLOAD": "Upload a different photo",
@@ -257,6 +293,7 @@
         "LAST_NAME": "Last name",
         "EMAIL": "Email",
         "USERNAME": "Username",
+        "PASSPORT": "Passport number",
         "BUTTON": {
           "SET_NEW_PASSWORD": "Set new password",
           "SAVE_CHANGES": "Save Changes",

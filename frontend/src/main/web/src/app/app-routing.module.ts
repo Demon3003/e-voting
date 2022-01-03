@@ -11,6 +11,7 @@ import {QuizEditComponent} from "./quiz-edit/quiz-edit.component";
 import {QuizDashboardComponent} from "./quiz-dashboard/quiz-dashboard.component";
 import {QuizComponent} from "./quiz/quiz.component";
 import {PassRecoveryComponent} from "./pass-recovery/pass-recovery.component";
+import { GoodVoiceComponent } from './good-voice/good-voice.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'dashboard/:tab', component: DashboardComponent},
   { path: 'dashboard', pathMatch: 'full', redirectTo: '/dashboard/Quizzes'},
   { path: 'home', component: HomeComponent},
+  { path: 'home/:user/:election', component: HomeComponent},
   { path: 'login', component: AuthorizationComponent},
   { path: 'signup', component: RegistrationComponent },
   { path: 'profile', component: UserProfileComponent },
@@ -26,7 +28,8 @@ const routes: Routes = [
   { path: 'quiz-dashboard', component: QuizDashboardComponent },
   { path: 'quiz/:id', component: QuizComponent },
   { path: 'quiz/:id/:sessionId', component: QuizComponent },
-  { path: 'pass-reset', component: PassRecoveryComponent }
+  { path: 'pass-reset', component: PassRecoveryComponent },
+  { path: 'goodvoice', component: GoodVoiceComponent }
 
 ];
 

@@ -1,55 +1,76 @@
 <section   class="min-vh-100" id="cover">
   <div class="container-fluid text-white">
-    <div class="row mt-2">
+    <div class="row mt-2 justify-content-center align-items-center">
       <nav class="col-md-3 col-lg-3 col-sm-2  d-none d-md-block sidebar navbar-expand-md">
         <div class="sidebar-sticky">
-          <img [src]="user.image || imageUrl" style="height: 100px; width: 100px" alt="avatar" class="img-thumbnail mt-3">
+          <img [src]="getUserImage() || imageUrl" style="height: 100px; width: 100px" alt="avatar" class="img-thumbnail mt-3">
+      
           <h5>
             <span class="badge bg-primary">{{getUserName()}} {{getUserLastName()}}</span>
           </h5>
+          <h5>
+            <span *ngIf="getUserStatus() === 4" class="badge bg-danger">{{'DASHBOARD.SIDEBAR.STATUS.INACTIVE' | translate}}</span>
+          </h5>
+          <h5>
+            <span *ngIf="getUserStatus() === 2 && getUserRole()==='user'" class="badge bg-success">{{'DASHBOARD.SIDEBAR.STATUS.ACTIVE' | translate}}</span>
+          </h5>
+          <h5>
+            <span *ngIf="getUserStatus() === 5 && getUserRole()==='user'" class="badge bg-warning">{{'DASHBOARD.SIDEBAR.STATUS.PENDING' | translate}}</span>
+          </h5>
+          
+          <h5>
+          <div class="row text-break " style="table-layout: fixed;word-wrap: break-word">
+            <span *ngIf="getUserStatus() === 6 && getUserRole()==='user'" style="table-layout: fixed;word-wrap: break-word" class=" text-break badge bg-danger col-md-7 col-lg-7 col-sm-2">
+           
+                {{'DASHBOARD.SIDEBAR.STATUS.REJECTED' | translate}}
+              
+              </span>
+          </div>
+        </h5>
+      
           <ul class="nav flex-column">
-            <li  class="nav-item active text-center border-bottom border-top">
+            <!-- <li  class="nav-item active text-center border-bottom border-top">
               <a class="nav-link active btn" (click)="changeTab('Quizzes')" >
                   <mat-icon inline=true>extension</mat-icon><strong> {{'DASHBOARD.SIDEBAR.QUIZZES' | translate}}</strong>
               </a>
-            </li>
-            <li *ngIf="getUserRole()==='user' || getUserRole()==='super admin'" class="nav-item border-bottom">
+            </li> -->
+            <li *ngIf="(getUserRole()==='user' || getUserRole()==='super admin')" class="nav-item border-bottom border-top">
               <a class="nav-link btn" (click)="profileSet(false, getUser())">
                 <span data-feather="users"></span>
-                <mat-icon inline=true>person</mat-icon><strong> {{'DASHBOARD.SIDEBAR.PROFILE' | translate}}</strong>
+                <mat-icon inline=true>person</mat-icon><strong>{{'DASHBOARD.SIDEBAR.PROFILE' | translate}}</strong>
               </a>
             </li>
-            <li *ngIf="getUserRole()==='user'" class="nav-item border-bottom">
-              <a class="nav-link btn" (click)="changeTab('Friends')">
-                <mat-icon inline=true>group</mat-icon><strong> {{'DASHBOARD.SIDEBAR.FRIENDS' | translate}}</strong>
+            <li *ngIf="getUserRole()!=='user'" class="nav-item border-bottom">
+              <a class="nav-link btn" (click)="changeTab('Voters')">
+                <mat-icon inline=true>group</mat-icon><strong> {{'DASHBOARD.SIDEBAR.VOTERS' | translate}}</strong>
               </a>
             </li>
             <li *ngIf="getUserRole()=='admin'"  class="nav-item border-bottom">
-              <a class="nav-link btn"  (click)="changeTab('Moderators')">
-                <mat-icon inline=true>group</mat-icon><strong> {{'DASHBOARD.SIDEBAR.MODERATORS' | translate}}</strong>
+              <a class="nav-link btn"  (click)="changeTab('Specialists')">
+                <mat-icon inline=true>group</mat-icon><strong> {{'DASHBOARD.SIDEBAR.SPECIALISTS' | translate}}</strong>
               </a>
             </li>
             <li *ngIf="getUserRole()=='super admin'" class="nav-item border-bottom">
-              <a class="nav-link btn"  (click)="changeTab('Admins-Moderators')">
-                <mat-icon inline=true>group</mat-icon><strong> {{'DASHBOARD.SIDEBAR.ADMINS_MODERATORS' | translate}}</strong>
+              <a class="nav-link btn"  (click)="changeTab('Admins-Specialists')">
+                <mat-icon inline=true>group</mat-icon><strong> {{'DASHBOARD.SIDEBAR.ADMINS_SPECIALISTS' | translate}}</strong>
               </a>
             </li>
-            <li *ngIf="getUserRole()=='user'" class="nav-item border-bottom">
-              <a class="nav-link btn" (click)="changeTab('Activity')">
-                <mat-icon inline=true>group</mat-icon><strong>{{'DASHBOARD.SIDEBAR.ACTIVITIES' | translate}}</strong>
-              </a>
-            </li>
-            <li  class="nav-item border-bottom">
+            <li *ngIf="getUserStatus() === 2" class="nav-item border-bottom">
               <a class="nav-link btn" (click)="changeTab('Announcement')">
-                <mat-icon inline=true>event_note</mat-icon> <strong> {{'DASHBOARD.SIDEBAR.ANNOUNCEMENT' | translate}}</strong>
+                <mat-icon inline=true>event_note</mat-icon> <strong> {{'DASHBOARD.SIDEBAR.FORM' | translate}}</strong>
               </a>
             </li>
             <li class="nav-item border-bottom">
-              <a class="nav-link active btn" (click)="changeTab('Achievements')" >
-                <mat-icon inline=true>gamepad</mat-icon><strong> {{'DASHBOARD.SIDEBAR.ACHIEVEMENTS' | translate}}</strong>
+              <a class="nav-link btn" (click)="changeTab('Election')">
+                <mat-icon inline=true>event_note</mat-icon> <strong> {{'DASHBOARD.SIDEBAR.ELECTIONS' | translate}}</strong>
               </a>
             </li>
-            <li *ngIf="getUserRole()=='user'" class="nav-item border-bottom">
+            <li class="nav-item border-bottom">
+              <a class="nav-link btn" (click)="changeTab('District')">
+                <mat-icon inline=true>account_balance</mat-icon> <strong> {{'DASHBOARD.SIDEBAR.DISTRICTS' | translate}}</strong>
+              </a>
+            </li>
+            <li *ngIf="getUserRole()=='super admin'" class="nav-item border-bottom">
               <a class="nav-link btn text-align-center" (click)="changeTab('Settings')">
                 <span data-feather="bar-chart-2"></span>
                 <mat-icon inline=true>settings</mat-icon><strong> {{'DASHBOARD.SIDEBAR.SETTINGS' | translate}}</strong>
@@ -88,11 +109,11 @@
             </div>
           </div>
         </div>
-        <div *ngIf="tab === 'Users' || tab === 'Friends' || tab === 'Admins-Moderators' || tab==='Moderators' || tab === 'Quizzes' " class=" main-frame container-fluid my-5 ">
+        <div *ngIf="tab === 'Users' || tab === 'Voters' || tab === 'Admins-Specialists' || tab==='Specialists' || tab === 'Quizzes' " class=" main-frame container-fluid my-5 ">
           <form *ngIf="tab !== 'Quizzes'" class="form-inline ml-3 my-2 my-lg-0" >
             <input [(ngModel)]="term" name="term" id="search-box"  class="form-control my-2 mx-auto" type="text" placeholder="Search" style="width: 70%">
-            <button for="search-box" class="btn btn-secondary my-2 my-sm-0" (click)="search()" type="submit" style="width: auto">Search</button>
-            <button *ngIf="getUserRole()==='admin' || getUserRole()==='super admin'" class="btn btn-success my-2 mx-auto my-sm-0"
+            <button for="search-box" class="btn btn-secondary my-2 my-sm-0" (click)="search()" type="submit" style="width: auto">{{'DASHBOARD.SEARCH.BUTTON.SEARCH' | translate}}</button>
+            <button *ngIf="(getUserRole()==='admin' || getUserRole()==='super admin') && tab !== 'Voters'" class="btn btn-success my-2 mx-auto my-sm-0"
                     (click)="profileSet(true)"  style="width: auto">{{'DASHBOARD.SEARCH.BUTTON.ADD' | translate}}</button>
           </form>
           <form *ngIf="tab === 'Quizzes'" class="form-inline ml-3 my-2 my-lg-0" >
@@ -103,7 +124,7 @@
                 <mat-option *ngFor="let category of categoriesList" [value]="category.name">{{category.name}}</mat-option>
               </mat-select>
             </mat-form-field>
-            <button for="search-box" class="btn btn-secondary my-2 mx-2 my-sm-0" (click)="search()" type="submit" style="width: auto">Search</button>
+            <button for="search-box" class="btn btn-secondary my-2 mx-2 my-sm-0" (click)="search()" type="submit" style="width: auto">{{'DASHBOARD.SEARCH.BUTTON.SEARCH' | translate}}</button>
             <div *ngIf="isMoreFiltersVisible" class="row ml-3">
               <input [(ngModel)]="quizUser" name="quizUser" id="search-quiz-by-user"  class="form-control my-2 mr-3" type="text" placeholder="User name" style="width: 20%">
               <mat-form-field>
@@ -123,11 +144,13 @@
             <button *ngIf="getUserRole()==='admin' || getUserRole()==='super admin'" class="btn btn-success my-2 mx-2 my-sm-0"
                     (click)="profileSet(true)"  style="width: auto">{{'DASHBOARD.SEARCH.BUTTON.ADD' | translate}}</button>
           </form>
-          <div *ngIf="tab !== 'Quizzes'">
+          <div *ngIf="tab !== 'Quizzes' && tab !=='Voters'">
             <app-user-card *ngFor="let user of users$ | async" (onChanged)="profileSet(false, $event)" [user]="user"></app-user-card>
+            
           </div>
-          <div *ngIf="tab === 'Friends'">
-            <app-friends></app-friends>
+          <div *ngIf="tab === 'Voters'">
+            <app-user-card *ngFor="let voter of voters$ | async" (onChanged)="profileSet(false, $event)" [user]="voter"></app-user-card>
+            <app-voters></app-voters>
           </div>
 
           <app-quiz-dashboard *ngIf="tab === 'Quizzes' && isVisible; else elseBlock" class="mt-5"></app-quiz-dashboard>
@@ -140,12 +163,11 @@
           </ng-template>
         </div>
         <!--Profile-->
-        <div *ngIf="tab === 'Achievements'">
-          <app-achievement-dashboard></app-achievement-dashboard>
-        </div>
         <app-user-profile *ngIf="tab === 'Profile' || tab === 'AddProfile'" [user]="user" [editOnly]="tab!=='Profile'"></app-user-profile>
         <app-settings *ngIf="tab === 'Settings'"></app-settings>
         <app-announcement-dashboard *ngIf="tab === 'Announcement'" ></app-announcement-dashboard>
+        <app-election-dashboard *ngIf="tab === 'Election'"></app-election-dashboard>
+        <app-district-dashboard *ngIf="tab === 'District'"></app-district-dashboard>
         <app-user-activity-dashboard *ngIf="tab === 'Activity'"></app-user-activity-dashboard>
       </main>
     </div>

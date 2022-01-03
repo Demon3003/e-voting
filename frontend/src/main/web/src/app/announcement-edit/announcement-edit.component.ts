@@ -8,7 +8,8 @@ import {
   ANNOUNCEMENT_APPROVED,
   ANNOUNCEMENT_CREATED,
   ANNOUNCEMENT_DEFAULT_IMAGE,
-  ANNOUNCEMENT_IMPORTANT
+  ANNOUNCEMENT_IMPORTANT,
+  USER_DEFAULT_IMAGE
 } from "../parameters";
 import {UploadFilesService} from "../services/upload-files.service";
 
@@ -25,7 +26,7 @@ export class AnnouncementEditComponent implements OnInit {
   announcement: Announcement = {} as Announcement;
   error = '';
   message = '';
-  imageUrl = ANNOUNCEMENT_DEFAULT_IMAGE;
+  imageUrl = USER_DEFAULT_IMAGE;
   form: FormGroup;
   announcementForm: FormGroup;
 
@@ -38,17 +39,15 @@ export class AnnouncementEditComponent implements OnInit {
     this.announcementForm = this.fb.group({
       title: [this.announcement.title, [Validators.required, Validators.minLength(3), Validators.maxLength(40)]],
       text: [this.announcement.text, [Validators.required, Validators.minLength(3), Validators.maxLength(499)]],
-      important: [''],
-      image: [this.announcement.image],
+    
     });
   }
 
   onChanged(url:string){
-    this.announcementForm.patchValue({
-      image: url
-    });
+    this.imageUrl = url;
     this.announcement.image = url;
   }
+
 
   getUserRole(): string {
     return this.userService.user.role.name;
@@ -58,7 +57,7 @@ export class AnnouncementEditComponent implements OnInit {
     this.announcement.title = this.announcementForm.get('title').value;
     this.announcement.text = this.announcementForm.get('text').value;
     this.announcementService.updateAnnouncement(this.announcement).
-    subscribe(resp => {this.message = 'Announcement updated!';},
+    subscribe(resp => {this.message = 'Форма оновлена!';},
       error => {this.error = error.message;});
   }
 
@@ -69,14 +68,14 @@ export class AnnouncementEditComponent implements OnInit {
     this.announcement.userId = this.userService.user.id;
     this.announcement.statusId = this.selectStatus();
     this.announcementService.createAnnouncement(this.announcement).subscribe(resp => {
-      this.message = 'Announcement added!';
+      this.message = 'Форма додана!';
     this.announcementForm.reset()},
       error => {this.error = error.message;});
   }
   delete() {
     this.cleanMessage();
     this.announcementService.deleteAnnouncement(+this.announcement.id).subscribe(
-      resp => {this.message = 'Announcement delete!';
+      resp => {this.message = 'Форма видалена!';
         this.router.navigateByUrl('/dashboard');
         this.announcementForm.reset()},
       error => {this.error = error.message;});
@@ -85,16 +84,11 @@ export class AnnouncementEditComponent implements OnInit {
     this.error = '';
     this.message = '';
   }
+  
   selectStatus(): number {
-    if (this.getUserRole() === 'user') {
-      return ANNOUNCEMENT_CREATED;
-    }
-    if(this.announcementForm.get('important').value) {
-      return ANNOUNCEMENT_IMPORTANT;
-    } else {
       return ANNOUNCEMENT_APPROVED;
-    }
   }
+
   submit() {
   }
 }
