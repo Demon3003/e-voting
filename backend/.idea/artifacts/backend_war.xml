@@ -7,7 +7,7 @@
         <packaging>war</packaging>
       </options>
     </properties>
-    <root id="archive" name="brain-duel-app.war">
+    <root id="archive" name="e-vote-app.war">
       <element id="artifact" artifact-name="backend:war exploded" />
     </root>
   </artifact>

@@ -12,8 +12,6 @@ import java.util.Locale;
 
 public interface UserService {
 
-
-    //TODO: IMPLEMENT
     String getUserNameById(Long id);
 
     void changeLanguage(String lang , Long userId);
